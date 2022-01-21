@@ -24,8 +24,30 @@ console.log(`Reduce #2: ${totalHeight}`);
 const totalCharactersInNames = sw.map(x=>x.name.split(" ").join('')).reduce((a,i)=>a+i).length;
 console.log(`Reduce #3: ${totalCharactersInNames}`);
 
-const totalCharactersInEyeColor = sw.map(x=>x.eye_color.split(" ").join('')).reduce((a,i)=>a+i).length;
+const totalCharactersInEyeColor = sw.map(x=>x.eye_color.split(" ").join('')).reduce((a,i)=>a+i).length; //So I thought the question was to do a reduce of the characters of the eye color
 console.log(`Reduce #4: ${totalCharactersInEyeColor}`);
+
+const totalXtersInEyeColor = sw.reduce((a,i)=>{
+    if(i.eye_color in a){
+        a[i.eye_color]+= 1;
+    } else{
+        a[i.eye_color] = 1;
+    }
+    return a;
+},{});
+console.log('Reduce #4:', totalXtersInEyeColor); // solution 1
+
+const totalXtersInEyeColor2 = sw.reduce((a,i)=>{
+    a[i.eye_color]=(a[i.eye_color] || 0)+1;
+    return a;
+},{});
+console.log('Reduce #4:', totalXtersInEyeColor2); //solution 2
+
+const totalXtersInEyeColor3 = sw.reduce((a,i)=>(
+    a[i.eye_color]=++
+    a[i.eye_color] || 1,a),
+    {});
+console.log('Reduce #4:', totalXtersInEyeColor3); //solution 3
 
 //FILTER Solutions
 const massGreaterThan100 = sw.filter(x=>x.mass > 100).map(x=>x.name);
